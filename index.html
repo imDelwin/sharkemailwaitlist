@@ -6,15 +6,9 @@
   <title>Shark — Your home for poker.</title>
   <meta name="description" content="Track your sessions. Analyze your game. Share your journey. Shark is the poker session tracker built for serious players.">
 
-  <style>
-    @font-face {
-      font-family: 'Coolvetica';
-      src: url('brand_assets/Coolvetica Rg.otf') format('opentype');
-      font-weight: normal;
-      font-style: normal;
-      font-display: swap;
-    }
-  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
     /* ── Brand tokens ──────────────────────────────────── */
@@ -65,9 +59,9 @@
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Coolvetica', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
       font-weight: 400;
-      letter-spacing: 0.04em;
+      letter-spacing: 0;
       background: var(--bg);
       color: var(--text);
       -webkit-font-smoothing: antialiased;
@@ -862,7 +856,7 @@
       display: grid;
       grid-template-areas: 'stack';
       place-items: center;
-      transform: translateX(-36px);
+      transform: translateX(-80px);
     }
 
     .dcard {
@@ -909,68 +903,81 @@
     .dcard-1 {
       filter: grayscale(1);
       z-index: 2;
-      transform: skewY(-8deg) translate(18px, 10px);
+      transform: skewY(-8deg) translate(40px, 22px);
     }
     .dcard-2 {
       filter: grayscale(1);
       z-index: 3;
-      transform: skewY(-8deg) translate(36px, 20px);
+      transform: skewY(-8deg) translate(80px, 44px);
     }
     .dcard-3 {
       filter: grayscale(1);
       z-index: 4;
-      transform: skewY(-8deg) translate(54px, 30px);
+      transform: skewY(-8deg) translate(120px, 66px);
     }
     .dcard-4 {
       z-index: 5;
-      transform: skewY(-8deg) translate(72px, 40px);
+      transform: skewY(-8deg) translate(160px, 88px);
     }
 
     /* Hover states */
     .dcard-0:hover {
       filter: grayscale(0);
-      transform: skewY(-8deg) translate(0px, -28px);
+      transform: skewY(-8deg) translate(0px, -30px);
       box-shadow: 0 40px 80px -16px rgba(37, 99, 235, 0.28), 0 0 0 1px rgba(255,255,255,0.12);
     }
     .dcard-0:hover .dcard-overlay { opacity: 0; }
 
     .dcard-1:hover {
       filter: grayscale(0);
-      transform: skewY(-8deg) translate(18px, -8px);
+      transform: skewY(-8deg) translate(40px, -8px);
       box-shadow: 0 40px 80px -16px rgba(37, 99, 235, 0.28), 0 0 0 1px rgba(255,255,255,0.12);
     }
     .dcard-1:hover .dcard-overlay { opacity: 0; }
 
     .dcard-2:hover {
       filter: grayscale(0);
-      transform: skewY(-8deg) translate(36px, 12px);
+      transform: skewY(-8deg) translate(80px, 14px);
       box-shadow: 0 40px 80px -16px rgba(37, 99, 235, 0.28), 0 0 0 1px rgba(255,255,255,0.12);
     }
     .dcard-2:hover .dcard-overlay { opacity: 0; }
 
     .dcard-3:hover {
       filter: grayscale(0);
-      transform: skewY(-8deg) translate(54px, 20px);
+      transform: skewY(-8deg) translate(120px, 36px);
       box-shadow: 0 40px 80px -16px rgba(37, 99, 235, 0.28), 0 0 0 1px rgba(255,255,255,0.12);
     }
     .dcard-3:hover .dcard-overlay { opacity: 0; }
 
     .dcard-4:hover {
-      transform: skewY(-8deg) translate(72px, 54px);
+      transform: skewY(-8deg) translate(160px, 106px);
       box-shadow: 0 40px 80px -16px rgba(37, 99, 235, 0.28), 0 0 0 1px rgba(255,255,255,0.12);
+    }
+
+    /* Tap-to-front active state */
+    .dcard.dcard-front {
+      z-index: 10 !important;
+      filter: grayscale(0) !important;
+      transform: skewY(-8deg) translate(80px, -30px) scale(1.06) !important;
+      box-shadow: 0 48px 96px -16px rgba(37, 99, 235, 0.45),
+                  0 0 0 1px rgba(255,255,255,0.15) !important;
+    }
+    .dcard.dcard-front .dcard-overlay {
+      opacity: 0 !important;
     }
 
     @media (min-width: 480px) {
       .dcard { width: 175px; }
-      .dcard-grid { transform: translateX(-44px); }
-      .dcard-1 { transform: skewY(-8deg) translate(22px, 12px); }
-      .dcard-2 { transform: skewY(-8deg) translate(44px, 24px); }
-      .dcard-3 { transform: skewY(-8deg) translate(66px, 36px); }
-      .dcard-4 { transform: skewY(-8deg) translate(88px, 48px); }
-      .dcard-1:hover { transform: skewY(-8deg) translate(22px, -8px); }
-      .dcard-2:hover { transform: skewY(-8deg) translate(44px, 14px); }
-      .dcard-3:hover { transform: skewY(-8deg) translate(66px, 24px); }
-      .dcard-4:hover { transform: skewY(-8deg) translate(88px, 62px); }
+      .dcard-grid { transform: translateX(-100px); }
+      .dcard-1 { transform: skewY(-8deg) translate(50px, 27px); }
+      .dcard-2 { transform: skewY(-8deg) translate(100px, 54px); }
+      .dcard-3 { transform: skewY(-8deg) translate(150px, 81px); }
+      .dcard-4 { transform: skewY(-8deg) translate(200px, 108px); }
+      .dcard.dcard-front { transform: skewY(-8deg) translate(100px, -30px) scale(1.06) !important; }
+      .dcard-1:hover { transform: skewY(-8deg) translate(50px, -3px); }
+      .dcard-2:hover { transform: skewY(-8deg) translate(100px, 24px); }
+      .dcard-3:hover { transform: skewY(-8deg) translate(150px, 51px); }
+      .dcard-4:hover { transform: skewY(-8deg) translate(200px, 136px); }
     }
 
     .dcard-pills {
@@ -1014,7 +1021,7 @@
     }
 
     .fsteps-heading {
-      font-size: 24px;
+      font-size: clamp(30px, 8vw, 38px);
       font-weight: 700;
       letter-spacing: -0.03em;
       color: var(--text);
@@ -1185,6 +1192,16 @@
 
 
     .fstep-item.fs-step-active .fstep-eyebrow { display: none; }
+
+    @media (max-width: 639px) {
+      .fstep-phone-wrap {
+        height: auto;
+        width: 72%;
+      }
+      .fsteps-visual {
+        min-height: 560px;
+      }
+    }
 
     @media (min-width: 640px) {
       .fsteps-wrap { padding: 0 24px; margin: 8px auto; }
@@ -1431,13 +1448,6 @@
         <img src="brand_assets/leaderboard.PNG" alt="Leaderboard">
       </div>
     </div>
-    <div class="dcard-pills">
-      <button class="dcard-pill" data-src="brand_assets/log in.PNG">Log in</button>
-      <button class="dcard-pill" data-src="brand_assets/profile.PNG">Profile</button>
-      <button class="dcard-pill" data-src="brand_assets/live tracking.PNG">Live</button>
-      <button class="dcard-pill" data-src="brand_assets/analytics.PNG">Analytics</button>
-      <button class="dcard-pill" data-src="brand_assets/leaderboard.PNG">Leaderboard</button>
-    </div>
   </div>
 
   <!-- ── Stats strip ──────────────────────────────────────── -->
@@ -1615,6 +1625,14 @@
       lb.addEventListener('click', function(e) { if (e.target === lb) closeLb(); });
       lbClose.addEventListener('click', closeLb);
       document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLb(); });
+
+      // Tap-to-front: clicking a card brings it to the front
+      document.querySelectorAll('.dcard').forEach(function(card) {
+        card.addEventListener('click', function() {
+          document.querySelectorAll('.dcard').forEach(function(c) { c.classList.remove('dcard-front'); });
+          this.classList.add('dcard-front');
+        });
+      });
     })();
 
   </script>
