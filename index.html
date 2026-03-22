@@ -869,6 +869,8 @@
       overflow: hidden;
       position: relative;
       cursor: pointer;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
       transform: skewY(-8deg) translate(0, 0);
       box-shadow:
         0 28px 64px -12px rgba(11, 18, 32, 0.45),
@@ -1593,26 +1595,35 @@
       lbClose.addEventListener('click', closeLb);
       document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLb(); });
 
-      // Tap-to-front: clicking a card rotates it to the front of the deck
+      // Tap-to-front: swap clicked card's position with dcard-4
       (function() {
-        var grid = document.querySelector('.dcard-grid');
         var N = 5;
 
-        function reindex() {
-          var cards = Array.from(grid.querySelectorAll('.dcard'));
-          cards.forEach(function(c, i) {
-            for (var j = 0; j < N; j++) c.classList.remove('dcard-' + j);
-            c.classList.add('dcard-' + i);
-          });
+        function getPos(el) {
+          for (var i = 0; i < N; i++) {
+            if (el.classList.contains('dcard-' + i)) return i;
+          }
+          return -1;
         }
 
-        grid.addEventListener('click', function(e) {
-          var card = e.target.closest('.dcard');
-          if (!card) return;
-          var cards = Array.from(grid.querySelectorAll('.dcard'));
-          if (cards.indexOf(card) === cards.length - 1) return; // already front
-          grid.appendChild(card);
-          reindex();
+        function swapToFront(card) {
+          var clickedPos = getPos(card);
+          if (clickedPos === N - 1) return; // already front
+
+          var grid = card.closest('.dcard-grid');
+          var front = grid.querySelector('.dcard-' + (N - 1));
+
+          card.classList.remove('dcard-' + clickedPos);
+          card.classList.add('dcard-' + (N - 1));
+          front.classList.remove('dcard-' + (N - 1));
+          front.classList.add('dcard-' + clickedPos);
+        }
+
+        document.querySelectorAll('.dcard').forEach(function(card) {
+          card.addEventListener('pointerdown', function(e) {
+            e.stopPropagation();
+            swapToFront(this);
+          });
         });
       }());
     })();
