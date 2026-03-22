@@ -66,81 +66,72 @@
       overflow-x: hidden;
     }
 
-    /* ── Marquee Header ──────────────────────────────────── */
-    @keyframes marquee-scroll {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-
-    .marquee-header {
+    /* ── Sticky Nav ──────────────────────────────────── */
+    nav {
       position: sticky;
       top: 0;
       z-index: 100;
-      overflow: hidden;
       width: 100%;
-      height: 52px;
+      height: 56px;
       background: var(--bg);
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
-      cursor: pointer;
+      justify-content: space-between;
+      padding: 0 20px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
 
-    .marquee-track {
+    .nav-logo {
       display: flex;
       align-items: center;
-      width: max-content;
-      white-space: nowrap;
-      animation: marquee-scroll 55s linear infinite;
+      gap: 8px;
+      text-decoration: none;
     }
 
-    .marquee-header:hover .marquee-track {
-      animation-play-state: paused;
+    .nav-logo img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      border-radius: 7px;
     }
 
+    .nav-logo-text {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
 
-    .marquee-item {
+    .nav-cta {
       display: inline-flex;
       align-items: center;
-      gap: 20px;
-      padding: 0 28px;
-      background: none;
+      gap: 6px;
+      padding: 8px 18px;
+      background: var(--blue);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      border-radius: 100px;
       border: none;
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
       touch-action: manipulation;
+      transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+      box-shadow: 0 2px 8px -2px rgba(37,99,235,0.35);
     }
 
-    .marquee-logo {
-      width: 22px;
-      height: 22px;
-      object-fit: contain;
-      border-radius: 5px;
-      flex-shrink: 0;
-    }
-
-    .marquee-label {
-      font-family: 'Inter', sans-serif;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      color: #fff;
-      background: var(--blue);
-      padding: 5px 14px;
-      border-radius: 100px;
-      transition: background 0.15s, transform 0.1s;
-    }
-
-    .marquee-item:hover .marquee-label {
+    .nav-cta:hover {
       background: var(--blue-hov);
       transform: translateY(-1px);
+      box-shadow: 0 4px 12px -2px rgba(37,99,235,0.40);
     }
 
-    .marquee-brand {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text);
-      letter-spacing: -0.02em;
+    .nav-cta:active {
+      transform: translateY(0);
+      box-shadow: 0 1px 4px -1px rgba(37,99,235,0.30);
     }
 
     /* ── Hero ─────────────────────────────────────────────
@@ -1011,7 +1002,7 @@
 
     .fsteps-layout {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 0.65fr 1.35fr;
       gap: 14px;
       align-items: stretch;
     }
@@ -1020,7 +1011,7 @@
     .fsteps-visual {
       position: relative;
       height: 100%;
-      min-height: 220px;
+      min-height: 280px;
       overflow: hidden;
       border-radius: 16px;
       background: var(--bg-sec);
@@ -1086,19 +1077,26 @@
     .fsteps-list {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 1px;
+      justify-content: space-between;
       order: 1;
     }
 
     .fstep-item {
       display: flex;
       align-items: flex-start;
-      gap: 8px;
-      padding: 7px 6px;
+      gap: 6px;
+      padding: 6px 4px;
       border-radius: 10px;
       cursor: pointer;
       opacity: 0.4;
       transition: opacity 0.3s ease, background 0.2s ease;
+    }
+
+    .fstep-item:not(:last-child) {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+      margin-bottom: 2px;
     }
 
     .fstep-item:hover { background: var(--bg-sec); opacity: 0.65; }
@@ -1111,8 +1109,8 @@
     .fstep-item.fs-step-done { opacity: 0.6; }
 
     .fstep-dot {
-      width: 24px;
-      height: 24px;
+      width: 20px;
+      height: 20px;
       flex-shrink: 0;
       border-radius: 50%;
       display: flex;
@@ -1155,7 +1153,7 @@
     .fstep-item.fs-step-active .fstep-eyebrow { display: block; }
 
     .fstep-title-text {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
       letter-spacing: -0.01em;
       color: var(--text);
@@ -1235,14 +1233,8 @@
       nav {
         padding: 0 32px;
         height: 64px;
-        justify-content: center;
-        position: relative;
       }
-      .nav-logo {
-        position: absolute;
-        left: 32px;
-      }
-      .nav-logo img { width: 32px; height: 32px; border-radius: 8px; }
+      .nav-logo img { width: 32px; height: 32px; }
       .nav-logo-text { font-size: 17px; }
 
       .hero {
@@ -1300,32 +1292,14 @@
 </head>
 <body>
 
-  <!-- ── Marquee Header ──────────────────────────────────── -->
-  <header class="marquee-header" onclick="openWaitlistModal()">
-    <div class="marquee-track" aria-hidden="true">
-
-      <!-- Set A -->
-      <span class="marquee-item"><img src="brand_assets/SharkLogo.PNG" alt="" class="marquee-logo"><span class="marquee-brand">Shark Poker</span><span class="marquee-label">Join Waitlist</span></span>
-      <span class="marquee-item"><img src="brand_assets/SharkLogo.PNG" alt="" class="marquee-logo"><span class="marquee-brand">Shark Poker</span><span class="marquee-label">Join Waitlist</span></span>
-      <span class="marquee-item"><img src="brand_assets/SharkLogo.PNG" alt="" class="marquee-logo"><span class="marquee-brand">Shark Poker</span><span class="marquee-label">Join Waitlist</span></span>
-      <span class="marquee-item"><img src="brand_assets/SharkLogo.PNG" alt="" class="marquee-logo"><span class="marquee-brand">Shark Poker</span><span class="marquee-label">Join Waitlist</span></span>
-      <span class="marquee-item"><img src="brand_assets/SharkLogo.PNG" alt="" class="marquee-logo"><span class="marquee-brand">Shark Poker</span><span class="marquee-label">Join Waitlist</span></span>
-      <span class="marquee-item"><img src="brand_assets/SharkLogo.PNG" alt="" class="marquee-logo"><span class="marquee-brand">Shark Poker</span><span class="marquee-label">Join Waitlist</span></span>
-      <span class="marquee-item"><img src="brand_assets/SharkLogo.PNG" alt="" class="marquee-logo"><span class="marquee-brand">Shark Poker</span><span class="marquee-label">Join Waitlist</span></span>
-      <span class="marquee-item"><img src="brand_assets/SharkLogo.PNG" alt="" class="marquee-logo"><span class="marquee-brand">Shark Poker</span><span class="marquee-label">Join Waitlist</span></span>
-
-      <!-- Set B (identical duplicate — enables seamless -50% loop) -->
-      <span class="marquee-item"><img src="brand_assets/SharkLogo.PNG" alt="" class="marquee-logo"><span class="marquee-brand">Shark Poker</span><span class="marquee-label">Join Waitlist</span></span>
-      <span class="marquee-item"><img src="brand_assets/SharkLogo.PNG" alt="" class="marquee-logo"><span class="marquee-brand">Shark Poker</span><span class="marquee-label">Join Waitlist</span></span>
-      <span class="marquee-item"><img src="brand_assets/SharkLogo.PNG" alt="" class="marquee-logo"><span class="marquee-brand">Shark Poker</span><span class="marquee-label">Join Waitlist</span></span>
-      <span class="marquee-item"><img src="brand_assets/SharkLogo.PNG" alt="" class="marquee-logo"><span class="marquee-brand">Shark Poker</span><span class="marquee-label">Join Waitlist</span></span>
-      <span class="marquee-item"><img src="brand_assets/SharkLogo.PNG" alt="" class="marquee-logo"><span class="marquee-brand">Shark Poker</span><span class="marquee-label">Join Waitlist</span></span>
-      <span class="marquee-item"><img src="brand_assets/SharkLogo.PNG" alt="" class="marquee-logo"><span class="marquee-brand">Shark Poker</span><span class="marquee-label">Join Waitlist</span></span>
-      <span class="marquee-item"><img src="brand_assets/SharkLogo.PNG" alt="" class="marquee-logo"><span class="marquee-brand">Shark Poker</span><span class="marquee-label">Join Waitlist</span></span>
-      <span class="marquee-item"><img src="brand_assets/SharkLogo.PNG" alt="" class="marquee-logo"><span class="marquee-brand">Shark Poker</span><span class="marquee-label">Join Waitlist</span></span>
-
-    </div>
-  </header>
+  <!-- ── Sticky Nav ──────────────────────────────────── -->
+  <nav>
+    <a class="nav-logo" href="#">
+      <img src="brand_assets/SharkLogo.PNG" alt="Shark Poker">
+      <span class="nav-logo-text">Shark</span>
+    </a>
+    <button class="nav-cta" onclick="openWaitlistModal()">Join Waitlist</button>
+  </nav>
 
   <!-- ── Hero ────────────────────────────────────────────── -->
   <section class="hero" id="hero-waitlist">
