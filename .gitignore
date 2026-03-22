@@ -1,10 +1,12 @@
 node_modules/
 temporary screenshots/
-*.MP4
-*.mp4
 *.png
 *.PNG
 *.jpg
 *.jpeg
-*.svg.png
 CLAUDE.md
+
+# Allow brand assets (overrides above)
+!brand_assets/*.PNG
+!brand_assets/*.MP4
+!Strava_Logo.svg.png
