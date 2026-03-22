@@ -29,7 +29,7 @@ const outputPath = path.join(screenshotDir, filename);
   const page = await browser.newPage();
   // Mobile viewport (iPhone 14 Pro)
   await page.setViewport({ width: 390, height: 844, deviceScaleFactor: 2 });
-  await page.goto(url, { waitUntil: 'networkidle0', timeout: 15000 });
+  await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 15000 });
   await new Promise(r => setTimeout(r, 500));
   await page.screenshot({ path: outputPath, fullPage: true });
   await browser.close();

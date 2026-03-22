@@ -6,9 +6,15 @@
   <title>Shark — Your home for poker.</title>
   <meta name="description" content="Track your sessions. Analyze your game. Share your journey. Shark is the poker session tracker built for serious players.">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Coolvetica';
+      src: url('brand_assets/Coolvetica Rg.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
 
   <style>
     /* ── Brand tokens ──────────────────────────────────── */
@@ -59,7 +65,9 @@
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+      font-family: 'Coolvetica', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      font-weight: 400;
+      letter-spacing: 0.04em;
       background: var(--bg);
       color: var(--text);
       -webkit-font-smoothing: antialiased;
@@ -844,7 +852,7 @@
     .dcard-section {
       width: 100%;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
       padding: 48px 0 64px;
       overflow: visible;
@@ -872,7 +880,6 @@
       transition: transform 0.55s cubic-bezier(0.34, 1.4, 0.64, 1),
                   filter 0.4s ease,
                   box-shadow 0.4s ease;
-      cursor: pointer;
     }
 
     .dcard img {
@@ -891,15 +898,6 @@
       border-radius: inherit;
       transition: opacity 0.4s ease;
       pointer-events: none;
-    }
-
-    .dcard.dcard-selected {
-      filter: grayscale(0) !important;
-      box-shadow: 0 40px 80px -16px rgba(37, 99, 235, 0.32), 0 0 0 1px rgba(255,255,255,0.14) !important;
-    }
-    .dcard.dcard-selected .dcard-overlay { opacity: 0 !important; }
-    .dcard-4.dcard-dimmed {
-      filter: grayscale(1) brightness(0.55);
     }
 
     /* Card positions — bottom-right is front */
@@ -975,6 +973,31 @@
       .dcard-4:hover { transform: skewY(-8deg) translate(88px, 62px); }
     }
 
+    .dcard-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 64px;
+    }
+    .dcard-pill {
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-sec);
+      color: var(--text-sec);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      letter-spacing: 0.01em;
+    }
+    .dcard-pill:hover {
+      background: var(--blue-tint);
+      color: var(--blue);
+      border-color: var(--blue);
+    }
+
     /* ── Feature Steps ──────────────────────────────────── */
     .fsteps-wrap {
       padding: 0 16px;
@@ -986,12 +1009,12 @@
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 28px;
-      padding: 20px 14px;
+      padding: 24px 16px;
       box-shadow: var(--shadow-card);
     }
 
     .fsteps-heading {
-      font-size: 18px;
+      font-size: 24px;
       font-weight: 700;
       letter-spacing: -0.03em;
       color: var(--text);
@@ -1001,21 +1024,19 @@
     }
 
     .fsteps-layout {
-      display: grid;
-      grid-template-columns: 0.65fr 1.35fr;
-      gap: 14px;
-      align-items: stretch;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
 
     /* Visual panel */
     .fsteps-visual {
       position: relative;
       height: 100%;
-      min-height: 280px;
+      min-height: 460px;
       overflow: hidden;
       border-radius: 16px;
-      background: var(--bg-sec);
-      order: 2;
+      order: 1;
     }
 
     .fstep-slide {
@@ -1064,13 +1085,7 @@
     }
 
     .fstep-slide-gradient {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 30%;
-      background: linear-gradient(to top, var(--bg-sec), transparent);
-      pointer-events: none;
+      display: none;
     }
 
     /* Steps list */
@@ -1079,7 +1094,7 @@
       flex-direction: column;
       gap: 1px;
       justify-content: space-between;
-      order: 1;
+      order: 2;
     }
 
     .fstep-item {
@@ -1153,7 +1168,7 @@
     .fstep-item.fs-step-active .fstep-eyebrow { display: block; }
 
     .fstep-title-text {
-      font-size: 10px;
+      font-size: 13px;
       font-weight: 700;
       letter-spacing: -0.01em;
       color: var(--text);
@@ -1176,9 +1191,10 @@
       .fsteps-card { padding: 48px 40px; }
       .fsteps-heading { font-size: 30px; margin-bottom: 40px; }
 
-      .fsteps-layout { gap: 48px; align-items: center; }
+      .fsteps-layout { display: grid; grid-template-columns: 0.65fr 1.35fr; gap: 48px; align-items: center; flex-direction: unset; }
 
-      .fsteps-visual { height: 460px; }
+      .fsteps-visual { height: 460px; min-height: 0; order: 2; }
+      .fsteps-list { order: 1; }
       .fsteps-list { gap: 4px; }
 
       .fstep-item { padding: 12px 14px; gap: 14px; }
@@ -1321,7 +1337,7 @@
   <!-- ── Feature Steps ─────────────────────────────────────── -->
   <div class="fsteps-wrap">
     <div class="fsteps-card">
-      <h2 class="fsteps-heading">Poker tracking, but actually fun.</h2>
+      <h2 class="fsteps-heading">Poker tracking, but<br>actually fun.</h2>
       <div class="fsteps-layout">
 
         <!-- Animated phone visual -->
@@ -1414,6 +1430,13 @@
       <div class="dcard dcard-4">
         <img src="brand_assets/leaderboard.PNG" alt="Leaderboard">
       </div>
+    </div>
+    <div class="dcard-pills">
+      <button class="dcard-pill" data-src="brand_assets/log in.PNG">Log in</button>
+      <button class="dcard-pill" data-src="brand_assets/profile.PNG">Profile</button>
+      <button class="dcard-pill" data-src="brand_assets/live tracking.PNG">Live</button>
+      <button class="dcard-pill" data-src="brand_assets/analytics.PNG">Analytics</button>
+      <button class="dcard-pill" data-src="brand_assets/leaderboard.PNG">Leaderboard</button>
     </div>
   </div>
 
@@ -1574,73 +1597,33 @@
       updateStates(0);
     })();
 
-    // ── Display cards: click to bring to front ──────────────
+    // ── Display cards: click to open lightbox ──────────────
     (function() {
-      var dcards = Array.from(document.querySelectorAll('.dcard'));
-      var last = dcards.length - 1;
-      var frontCard = dcards[last];
-      var selectedIdx = -1;
+      var lb = document.getElementById('dcard-lightbox');
+      var lbImg = document.getElementById('dcard-lightbox-img');
+      var lbClose = document.getElementById('dcard-lightbox-close');
 
-      function parseTranslate(matrix) {
-        var m = matrix.match(/matrix\(([^)]+)\)/);
-        if (!m) return {x:0, y:0};
-        var p = m[1].split(',').map(parseFloat);
-        return {x: p[4], y: p[5]};
-      }
-      function shiftMatrix(matrix, dx, dy) {
-        var m = matrix.match(/matrix\(([^)]+)\)/);
-        if (!m) return matrix;
-        var p = m[1].split(',').map(parseFloat);
-        p[4] += dx; p[5] += dy;
-        return 'matrix(' + p.join(',') + ')';
-      }
-      // Capture at init — no hover state active yet, so values are clean base positions
-      var m3init = getComputedStyle(dcards[last - 1]).transform;
-      var m4init = getComputedStyle(dcards[last]).transform;
-      var t3init = parseTranslate(m3init);
-      var t4init = parseTranslate(m4init);
-      var frontTransform = shiftMatrix(m4init, t4init.x - t3init.x, t4init.y - t3init.y);
+      function openLb(src) { lbImg.src = src; lb.style.display = 'flex'; }
+      function closeLb() { lb.style.display = 'none'; lbImg.src = ''; }
 
-      function snapToBase(el) {
-        // Instantly reset to CSS class position, bypassing any in-flight transition
-        el.style.transition = 'none';
-        el.style.transform = '';
-        el.style.zIndex = '';
-        el.getBoundingClientRect(); // force reflow so browser commits the snap
-        el.style.transition = '';   // restore CSS transition for next animation
-      }
-
-      function deselect() {
-        if (selectedIdx < 0) return;
-        var c = dcards[selectedIdx];
-        snapToBase(c);
-        c.classList.remove('dcard-selected');
-        frontCard.classList.remove('dcard-dimmed');
-        selectedIdx = -1;
-      }
-
-      dcards.forEach(function(card, i) {
-        card.addEventListener('click', function(e) {
-          e.stopPropagation();
-          if (i === last) return;
-          if (selectedIdx === i) { deselect(); return; }
-          deselect();
-          // Always snap to base first so the animation starts from
-          // the correct position regardless of any in-flight transition
-          snapToBase(card);
-          card.style.transform = frontTransform;
-          card.style.zIndex = 10;
-          card.classList.add('dcard-selected');
-          frontCard.classList.add('dcard-dimmed');
-          selectedIdx = i;
-        });
+      // Use resolved absolute URLs from the img elements to avoid encoding issues
+      var srcs = Array.from(document.querySelectorAll('.dcard img')).map(function(img) { return img.src; });
+      document.querySelectorAll('.dcard-pill').forEach(function(pill, i) {
+        pill.addEventListener('click', function() { openLb(srcs[i]); });
       });
 
-      document.addEventListener('click', deselect);
+      lb.addEventListener('click', function(e) { if (e.target === lb) closeLb(); });
+      lbClose.addEventListener('click', closeLb);
+      document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLb(); });
     })();
 
   </script>
 
+  <!-- Lightbox for display cards -->
+  <div id="dcard-lightbox" style="display:none; position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,0.88); align-items:center; justify-content:center; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);">
+    <img id="dcard-lightbox-img" src="" alt="" style="max-height:88vh; max-width:88vw; border-radius:22px; box-shadow:0 48px 96px -16px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.08);">
+    <button id="dcard-lightbox-close" style="position:absolute; top:20px; right:24px; background:rgba(255,255,255,0.12); border:none; color:#fff; font-size:20px; line-height:1; width:36px; height:36px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center;">✕</button>
+  </div>
 
 </body>
 </html>
