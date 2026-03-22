@@ -178,7 +178,7 @@
     }
 
     .hero h1 {
-      font-size: clamp(32px, 8vw, 64px);
+      font-size: clamp(38px, 9vw, 64px);
       font-weight: 700;
       line-height: 1.06;
       letter-spacing: -0.03em;
@@ -957,15 +957,8 @@
       box-shadow: 0 40px 80px -16px rgba(37, 99, 235, 0.28), 0 0 0 1px rgba(255,255,255,0.12);
     }
 
-    /* Tap-to-front active state */
-    .dcard.dcard-front {
-      z-index: 10 !important;
-      filter: grayscale(0) !important;
-      transform: skewY(-8deg) translate(160px, 88px) !important;
-    }
-    .dcard.dcard-front .dcard-overlay {
-      opacity: 0 !important;
-    }
+    /* Front card (position 4) always shows full color with no overlay */
+    .dcard-4 .dcard-overlay { opacity: 0; }
 
     @media (min-width: 480px) {
       .dcard { width: 175px; }
@@ -974,7 +967,6 @@
       .dcard-2 { transform: skewY(-8deg) translate(100px, 54px); }
       .dcard-3 { transform: skewY(-8deg) translate(150px, 81px); }
       .dcard-4 { transform: skewY(-8deg) translate(200px, 108px); }
-      .dcard.dcard-front { transform: skewY(-8deg) translate(200px, 108px) !important; }
       .dcard-1:hover { transform: skewY(-8deg) translate(50px, -3px); }
       .dcard-2:hover { transform: skewY(-8deg) translate(100px, 24px); }
       .dcard-3:hover { transform: skewY(-8deg) translate(150px, 51px); }
@@ -1019,16 +1011,6 @@
       border-radius: 28px;
       padding: 24px 16px;
       box-shadow: var(--shadow-card);
-    }
-
-    .fsteps-heading {
-      font-size: clamp(30px, 8vw, 38px);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      color: var(--text);
-      text-align: center;
-      margin-bottom: 16px;
-      line-height: 1.2;
     }
 
     .fsteps-layout {
@@ -1132,8 +1114,8 @@
     .fstep-item.fs-step-done { opacity: 0.6; }
 
     .fstep-dot {
-      width: 20px;
-      height: 20px;
+      width: 22px;
+      height: 22px;
       flex-shrink: 0;
       border-radius: 50%;
       display: flex;
@@ -1164,7 +1146,7 @@
     .fstep-body { flex: 1; min-width: 0; }
 
     .fstep-eyebrow {
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -1173,10 +1155,8 @@
       display: none;
     }
 
-    .fstep-item.fs-step-active .fstep-eyebrow { display: block; }
-
     .fstep-title-text {
-      font-size: 13px;
+      font-size: 16px;
       font-weight: 700;
       letter-spacing: -0.01em;
       color: var(--text);
@@ -1185,14 +1165,13 @@
     }
 
     .fstep-desc {
-      font-size: 13px;
+      font-size: 14px;
       line-height: 1.55;
       color: var(--text-sec);
       display: none;
     }
 
-
-    .fstep-item.fs-step-active .fstep-eyebrow { display: none; }
+    .fstep-item.fs-step-active .fstep-desc { display: block; }
 
     @media (max-width: 639px) {
       .fstep-phone-wrap {
@@ -1207,7 +1186,7 @@
     @media (min-width: 640px) {
       .fsteps-wrap { padding: 0 24px; margin: 8px auto 80px; }
       .fsteps-card { padding: 48px 40px; }
-      .fsteps-heading { font-size: 30px; margin-bottom: 40px; }
+
 
       .fsteps-layout { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 48px; align-items: center; flex-direction: unset; }
 
@@ -1355,7 +1334,6 @@
   <!-- ── Feature Steps ─────────────────────────────────────── -->
   <div class="fsteps-wrap">
     <div class="fsteps-card">
-      <h2 class="fsteps-heading">Poker tracking, but<br>actually fun.</h2>
       <div class="fsteps-layout">
 
         <!-- Animated phone visual -->
@@ -1446,6 +1424,7 @@
         <img src="brand_assets/analytics.PNG" alt="Analytics">
       </div>
       <div class="dcard dcard-4">
+        <div class="dcard-overlay"></div>
         <img src="brand_assets/leaderboard.PNG" alt="Leaderboard">
       </div>
     </div>
@@ -1627,13 +1606,28 @@
       lbClose.addEventListener('click', closeLb);
       document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLb(); });
 
-      // Tap-to-front: clicking a card brings it to the front
-      document.querySelectorAll('.dcard').forEach(function(card) {
-        card.addEventListener('click', function() {
-          document.querySelectorAll('.dcard').forEach(function(c) { c.classList.remove('dcard-front'); });
-          this.classList.add('dcard-front');
+      // Tap-to-front: clicking a card rotates it to the front of the deck
+      (function() {
+        var grid = document.querySelector('.dcard-grid');
+        var N = 5;
+
+        function reindex() {
+          var cards = Array.from(grid.querySelectorAll('.dcard'));
+          cards.forEach(function(c, i) {
+            for (var j = 0; j < N; j++) c.classList.remove('dcard-' + j);
+            c.classList.add('dcard-' + i);
+          });
+        }
+
+        grid.addEventListener('click', function(e) {
+          var card = e.target.closest('.dcard');
+          if (!card) return;
+          var cards = Array.from(grid.querySelectorAll('.dcard'));
+          if (cards.indexOf(card) === cards.length - 1) return; // already front
+          grid.appendChild(card);
+          reindex();
         });
-      });
+      }());
     })();
 
   </script>
