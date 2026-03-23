@@ -1630,6 +1630,20 @@
 
   </script>
 
+  <script>
+    // Prevent iOS Safari from zooming on email input focus
+    (function () {
+      var viewport = document.querySelector('meta[name="viewport"]');
+      var original = viewport.getAttribute('content');
+      function lock() { viewport.setAttribute('content', original + ', maximum-scale=1'); }
+      function unlock() { viewport.setAttribute('content', original); }
+      document.querySelectorAll('input[type="email"]').forEach(function (el) {
+        el.addEventListener('focus', lock);
+        el.addEventListener('blur', unlock);
+      });
+    })();
+  </script>
+
   <!-- Lightbox for display cards -->
   <div id="dcard-lightbox" style="display:none; position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,0.88); align-items:center; justify-content:center; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);">
     <img id="dcard-lightbox-img" src="" alt="" style="max-height:88vh; max-width:88vw; border-radius:22px; box-shadow:0 48px 96px -16px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.08);">
