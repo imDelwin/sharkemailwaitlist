@@ -1660,7 +1660,14 @@
         }
 
         document.querySelectorAll('.dcard').forEach(function(card) {
-          card.addEventListener('pointerdown', function(e) {
+          var touched = false;
+          card.addEventListener('touchstart', function(e) {
+            touched = true;
+            e.stopPropagation();
+            swapToFront(this);
+          }, { passive: true });
+          card.addEventListener('click', function(e) {
+            if (touched) { touched = false; return; }
             e.stopPropagation();
             swapToFront(this);
           });
