@@ -925,38 +925,40 @@
       transform: skewY(-8deg) translate(160px, 88px);
     }
 
-    /* Hover states */
-    .dcard-0:hover {
-      filter: grayscale(0);
-      transform: skewY(-8deg) translate(0px, -30px);
-      box-shadow: 0 40px 80px -16px rgba(37, 99, 235, 0.28), 0 0 0 1px rgba(255,255,255,0.12);
-    }
-    .dcard-0:hover .dcard-overlay { opacity: 0; }
+    /* Hover states — only on devices with a real hover pointer */
+    @media (hover: hover) {
+      .dcard-0:hover {
+        filter: grayscale(0);
+        transform: skewY(-8deg) translate(0px, -30px);
+        box-shadow: 0 40px 80px -16px rgba(37, 99, 235, 0.28), 0 0 0 1px rgba(255,255,255,0.12);
+      }
+      .dcard-0:hover .dcard-overlay { opacity: 0; }
 
-    .dcard-1:hover {
-      filter: grayscale(0);
-      transform: skewY(-8deg) translate(40px, -8px);
-      box-shadow: 0 40px 80px -16px rgba(37, 99, 235, 0.28), 0 0 0 1px rgba(255,255,255,0.12);
-    }
-    .dcard-1:hover .dcard-overlay { opacity: 0; }
+      .dcard-1:hover {
+        filter: grayscale(0);
+        transform: skewY(-8deg) translate(40px, -8px);
+        box-shadow: 0 40px 80px -16px rgba(37, 99, 235, 0.28), 0 0 0 1px rgba(255,255,255,0.12);
+      }
+      .dcard-1:hover .dcard-overlay { opacity: 0; }
 
-    .dcard-2:hover {
-      filter: grayscale(0);
-      transform: skewY(-8deg) translate(80px, 14px);
-      box-shadow: 0 40px 80px -16px rgba(37, 99, 235, 0.28), 0 0 0 1px rgba(255,255,255,0.12);
-    }
-    .dcard-2:hover .dcard-overlay { opacity: 0; }
+      .dcard-2:hover {
+        filter: grayscale(0);
+        transform: skewY(-8deg) translate(80px, 14px);
+        box-shadow: 0 40px 80px -16px rgba(37, 99, 235, 0.28), 0 0 0 1px rgba(255,255,255,0.12);
+      }
+      .dcard-2:hover .dcard-overlay { opacity: 0; }
 
-    .dcard-3:hover {
-      filter: grayscale(0);
-      transform: skewY(-8deg) translate(120px, 36px);
-      box-shadow: 0 40px 80px -16px rgba(37, 99, 235, 0.28), 0 0 0 1px rgba(255,255,255,0.12);
-    }
-    .dcard-3:hover .dcard-overlay { opacity: 0; }
+      .dcard-3:hover {
+        filter: grayscale(0);
+        transform: skewY(-8deg) translate(120px, 36px);
+        box-shadow: 0 40px 80px -16px rgba(37, 99, 235, 0.28), 0 0 0 1px rgba(255,255,255,0.12);
+      }
+      .dcard-3:hover .dcard-overlay { opacity: 0; }
 
-    .dcard-4:hover {
-      transform: skewY(-8deg) translate(160px, 106px);
-      box-shadow: 0 40px 80px -16px rgba(37, 99, 235, 0.28), 0 0 0 1px rgba(255,255,255,0.12);
+      .dcard-4:hover {
+        transform: skewY(-8deg) translate(160px, 106px);
+        box-shadow: 0 40px 80px -16px rgba(37, 99, 235, 0.28), 0 0 0 1px rgba(255,255,255,0.12);
+      }
     }
 
     /* Front card (position 4) always shows full color with no overlay */
@@ -969,6 +971,8 @@
       .dcard-2 { transform: skewY(-8deg) translate(100px, 54px); }
       .dcard-3 { transform: skewY(-8deg) translate(150px, 81px); }
       .dcard-4 { transform: skewY(-8deg) translate(200px, 108px); }
+    }
+    @media (min-width: 480px) and (hover: hover) {
       .dcard-1:hover { transform: skewY(-8deg) translate(50px, -3px); }
       .dcard-2:hover { transform: skewY(-8deg) translate(100px, 24px); }
       .dcard-3:hover { transform: skewY(-8deg) translate(150px, 51px); }
@@ -1315,6 +1319,7 @@
 
     <!-- Waitlist form — primary CTA -->
     <form class="waitlist-form" id="hero-form" onsubmit="handleWaitlist(event, 'hero')">
+      <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
       <input type="email" placeholder="your@email.com" required autocomplete="email">
       <button type="submit"><span class="btn-inner">Join the waitlist <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.9"><path d="M2 11L11 2M11 2H5M11 2V8" stroke="white" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
     </form>
@@ -1427,6 +1432,7 @@
       <h2>Get notified when Shark launches on the App Store.</h2>
       <p>Join the waitlist. We'll let you know the moment the app launches — and you'll get early access before anyone else.</p>
       <form class="cta-form" id="cta-form" onsubmit="handleWaitlist(event, 'cta')">
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
         <input type="email" placeholder="your@email.com" required autocomplete="email">
         <button type="submit"><span class="btn-inner">Join waitlist <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.9"><path d="M2 11L11 2M11 2H5M11 2V8" stroke="white" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
       </form>
@@ -1463,6 +1469,7 @@
       <h2 style="font-size:24px;font-weight:700;letter-spacing:-0.03em;margin-bottom:8px;color:var(--text);">Join the waitlist</h2>
       <p style="font-size:15px;color:var(--text-sec);margin-bottom:28px;line-height:1.6;">Be first to know when Shark launches.</p>
       <form id="modal-form" onsubmit="handleWaitlist(event,'modal')" style="display:flex;flex-direction:column;gap:12px;">
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
         <input type="email" placeholder="your@email.com" required autocomplete="email" style="width:100%;padding:14px 16px;border:1.5px solid var(--border);border-radius:12px;font-size:16px;color:var(--text);background:var(--bg);outline:none;box-sizing:border-box;transition:border-color 0.15s;" onfocus="this.style.borderColor='var(--blue)'" onblur="this.style.borderColor='var(--border)'">
         <button type="submit" style="width:100%;padding:14px;background:#2563eb;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;letter-spacing:-0.01em;transition:transform 0.15s,box-shadow 0.2s,filter 0.2s;box-shadow:0 4px 24px -4px rgba(37,99,235,0.5);position:relative;overflow:hidden;" onmouseover="this.style.transform='translateY(-2px)';this.style.filter='brightness(1.1)'" onmouseout="this.style.transform='';this.style.filter=''" onmousedown="this.style.transform='translateY(1px)'" onmouseup="this.style.transform=''"><span style="position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:6px;">Join the waitlist <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.9"><path d="M2 11L11 2M11 2H5M11 2V8" stroke="white" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
       </form>
@@ -1477,38 +1484,52 @@
   <script>
     function handleWaitlist(e, source) {
       e.preventDefault();
-      const email = e.target.querySelector('input[type="email"]').value.toLowerCase().trim();
+      const form = e.target;
+      const emailInput = form.querySelector('input[type="email"]');
+      const email = emailInput.value.toLowerCase().trim();
+      const btn = form.querySelector('button[type="submit"]');
 
       // Check for duplicate submission
       const submitted = JSON.parse(localStorage.getItem('shark_waitlist') || '[]');
       if (submitted.includes(email)) {
-        e.target.querySelector('input[type="email"]').setCustomValidity('You\'re already on the list!');
-        e.target.querySelector('input[type="email"]').reportValidity();
-        setTimeout(() => e.target.querySelector('input[type="email"]').setCustomValidity(''), 3000);
+        emailInput.setCustomValidity('You\'re already on the list!');
+        emailInput.reportValidity();
+        setTimeout(() => emailInput.setCustomValidity(''), 3000);
         return;
       }
+
+      // Disable button while submitting
+      btn.disabled = true;
 
       // Submit to Formspree
       fetch('https://formspree.io/f/xreyvolb', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: email })
+      })
+      .then(function(res) {
+        if (!res.ok) throw new Error('server');
+
+        // Save email to localStorage only after confirmed success
+        submitted.push(email);
+        localStorage.setItem('shark_waitlist', JSON.stringify(submitted));
+
+        // Show success UI
+        if (source === 'modal') {
+          document.getElementById('modal-form').style.display = 'none';
+          document.getElementById('modal-success').style.display = 'flex';
+        } else {
+          const successEl = source === 'hero' ? document.getElementById('hero-success') : document.getElementById('cta-success');
+          form.style.display = 'none';
+          successEl.style.display = 'flex';
+        }
+      })
+      .catch(function() {
+        btn.disabled = false;
+        emailInput.setCustomValidity('Something went wrong — please try again.');
+        emailInput.reportValidity();
+        setTimeout(() => emailInput.setCustomValidity(''), 4000);
       });
-
-      // Save email to localStorage
-      submitted.push(email);
-      localStorage.setItem('shark_waitlist', JSON.stringify(submitted));
-
-      // Show success UI
-      if (source === 'modal') {
-        document.getElementById('modal-form').style.display = 'none';
-        document.getElementById('modal-success').style.display = 'flex';
-      } else {
-        const form = source === 'hero' ? document.getElementById('hero-form') : document.getElementById('cta-form');
-        const success = source === 'hero' ? document.getElementById('hero-success') : document.getElementById('cta-success');
-        form.style.display = 'none';
-        success.style.display = 'flex';
-      }
     }
 
     function openWaitlistModal() {
@@ -1595,7 +1616,7 @@
       lbClose.addEventListener('click', closeLb);
       document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLb(); });
 
-      // Tap-to-front: swap clicked card's position with dcard-4
+      // Tap-to-front: rotate cards so tapped card reaches front
       (function() {
         var N = 5;
 
@@ -1611,16 +1632,35 @@
           if (clickedPos === N - 1) return; // already front
 
           var grid = card.closest('.dcard-grid');
-          var front = grid.querySelector('.dcard-' + (N - 1));
+          var allCards = Array.from(grid.querySelectorAll('.dcard'));
 
+          // Boost tapped card z-index during transition
+          card.style.zIndex = '10';
+
+          // Shift cards above clickedPos down by one position
+          allCards.forEach(function(c) {
+            var pos = getPos(c);
+            if (pos > clickedPos && pos <= N - 1) {
+              c.classList.remove('dcard-' + pos);
+              c.classList.add('dcard-' + (pos - 1));
+            }
+          });
+
+          // Move tapped card to front
           card.classList.remove('dcard-' + clickedPos);
           card.classList.add('dcard-' + (N - 1));
-          front.classList.remove('dcard-' + (N - 1));
-          front.classList.add('dcard-' + clickedPos);
+
+          // Clear inline z-index after transition completes
+          card.addEventListener('transitionend', function handler(e) {
+            if (e.propertyName === 'transform') {
+              card.style.zIndex = '';
+              card.removeEventListener('transitionend', handler);
+            }
+          });
         }
 
         document.querySelectorAll('.dcard').forEach(function(card) {
-          card.addEventListener('pointerdown', function(e) {
+          card.addEventListener('click', function(e) {
             e.stopPropagation();
             swapToFront(this);
           });
