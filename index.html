@@ -1660,7 +1660,7 @@
         }
 
         document.querySelectorAll('.dcard').forEach(function(card) {
-          card.addEventListener('click', function(e) {
+          card.addEventListener('pointerdown', function(e) {
             e.stopPropagation();
             swapToFront(this);
           });
