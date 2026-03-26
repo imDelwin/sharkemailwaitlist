@@ -921,6 +921,14 @@
       display: block;
     }
 
+    .fstep-phone-wrap video {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .fstep-phone-wrap video.video-ready {
+      opacity: 1;
+    }
+
     .fstep-slide-gradient {
       display: none;
     }
@@ -1179,7 +1187,7 @@
         <div class="fsteps-visual" id="fsteps-visual">
           <div class="fstep-slide fs-active" data-index="0">
             <div class="fstep-phone-wrap">
-              <video src="brand_assets/log session video.MP4" autoplay muted loop playsinline></video>
+              <video src="brand_assets/log session video.MP4" autoplay muted loop playsinline preload="auto"></video>
             </div>
             <div class="fstep-slide-gradient"></div>
           </div>
@@ -1411,6 +1419,15 @@
 
       // Kick off
       updateStates(0);
+
+      // Fade in videos once first frame is decoded (avoids black flash)
+      document.querySelectorAll('.fstep-phone-wrap video').forEach(function(v) {
+        if (v.readyState >= 2) {
+          v.classList.add('video-ready');
+        } else {
+          v.addEventListener('loadeddata', function() { v.classList.add('video-ready'); }, { once: true });
+        }
+      });
     })();
 
 
