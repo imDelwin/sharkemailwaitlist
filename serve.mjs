@@ -64,6 +64,7 @@ http.createServer((req, res) => {
       fs.createReadStream(filePath).pipe(res);
     }
   });
-}).listen(PORT, () => {
+}).listen(PORT, '0.0.0.0', () => {
   console.log(`Shark server running at http://localhost:${PORT}`);
+  console.log(`Network: http://192.168.2.118:${PORT}`);
 });
