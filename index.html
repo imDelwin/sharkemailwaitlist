@@ -1147,6 +1147,294 @@
       .feat-h { font-size: 38px; }
     }
 
+    /* ── Feature Carousel ────────────────────────────────── */
+    .fcarousel-wrap {
+      padding: 0 16px;
+      max-width: 1120px;
+      margin: 48px auto;
+    }
+
+    .fcarousel-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+    }
+
+    .fcarousel-layout {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Nav panel (blue) ── */
+    .fcarousel-nav {
+      background: var(--blue);
+      padding: 18px 16px;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      position: relative;
+    }
+    .fcarousel-nav::-webkit-scrollbar { display: none; }
+
+    /* Fade edges on mobile scroll strip */
+    .fcarousel-nav::before,
+    .fcarousel-nav::after {
+      content: '';
+      position: sticky;
+      flex-shrink: 0;
+      width: 20px;
+      z-index: 2;
+    }
+    .fcarousel-nav::before {
+      left: 0;
+      background: linear-gradient(to right, var(--blue), transparent);
+    }
+    .fcarousel-nav::after {
+      right: 0;
+      background: linear-gradient(to left, var(--blue), transparent);
+    }
+
+    .fcarousel-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 100px;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.6);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      transition: background 0.4s cubic-bezier(0.25,0.46,0.45,0.94),
+                  color 0.4s cubic-bezier(0.25,0.46,0.45,0.94),
+                  border-color 0.4s cubic-bezier(0.25,0.46,0.45,0.94),
+                  transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    .fcarousel-nav-item:hover {
+      color: rgba(255,255,255,0.9);
+      border-color: rgba(255,255,255,0.35);
+    }
+
+    .fcarousel-nav-item.fc-active {
+      background: #fff;
+      color: var(--blue);
+      border-color: #fff;
+      transform: scale(1.03);
+      box-shadow: 0 4px 16px -4px rgba(0,0,0,0.15);
+    }
+
+    .fcarousel-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+    }
+    .fcarousel-icon svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ── Card stack panel ── */
+    .fcarousel-stack {
+      position: relative;
+      min-height: 460px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 36px 16px;
+      background: var(--bg);
+    }
+
+    .fcarousel-slide {
+      position: absolute;
+      width: 210px;
+      aspect-ratio: 9 / 19.5;
+      border-radius: 32px;
+      overflow: hidden;
+      background: var(--card);
+      border: 6px solid var(--card);
+      box-shadow:
+        0 24px 60px -12px rgba(11,18,32,0.25),
+        0 8px 20px -8px rgba(37,99,235,0.1),
+        0 0 0 1px var(--border);
+      opacity: 0;
+      transform: translateX(120%) scale(0.75) rotate(6deg);
+      transition: transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94),
+                  opacity 0.55s cubic-bezier(0.25,0.46,0.45,0.94);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .fcarousel-slide img,
+    .fcarousel-slide video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+    }
+    .fcarousel-slide video {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .fcarousel-slide video.video-ready {
+      opacity: 1;
+    }
+
+    /* Card states */
+    .fcarousel-slide.fc-prev {
+      opacity: 0.45;
+      transform: translateX(-55%) scale(0.8) rotate(-4deg);
+      z-index: 2;
+      pointer-events: none;
+    }
+    .fcarousel-slide.fc-prev img,
+    .fcarousel-slide.fc-prev video {
+      filter: grayscale(0.4) blur(1px) brightness(0.8);
+    }
+
+    .fcarousel-slide.fc-active {
+      opacity: 1;
+      transform: translateX(0) scale(1) rotate(0deg);
+      z-index: 3;
+      pointer-events: auto;
+    }
+
+    .fcarousel-slide.fc-next {
+      opacity: 0.45;
+      transform: translateX(55%) scale(0.8) rotate(4deg);
+      z-index: 2;
+      pointer-events: none;
+    }
+    .fcarousel-slide.fc-next img,
+    .fcarousel-slide.fc-next video {
+      filter: grayscale(0.4) blur(1px) brightness(0.8);
+    }
+
+    /* Overlay */
+    .fcarousel-slide-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 48px 14px 14px;
+      background: linear-gradient(to top, rgba(11,18,32,0.88) 0%, rgba(11,18,32,0.4) 50%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    }
+    .fcarousel-slide.fc-active .fcarousel-slide-overlay {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .fcarousel-slide-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      background: var(--blue);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 600;
+      border-radius: 100px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .fcarousel-slide-pill::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 0 6px rgba(255,255,255,0.6);
+    }
+
+    .fcarousel-slide-desc {
+      font-size: 13px;
+      color: rgba(255,255,255,0.9);
+      font-weight: 500;
+      margin: 0;
+      line-height: 1.4;
+      letter-spacing: -0.01em;
+    }
+
+    /* ── Responsive ── */
+    @media (min-width: 640px) {
+      .fcarousel-wrap { padding: 0 24px; margin: 64px auto; }
+      .fcarousel-slide { width: 240px; }
+      .fcarousel-stack { min-height: 520px; }
+    }
+
+    @media (min-width: 768px) {
+      .fcarousel-layout {
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        min-height: 540px;
+      }
+
+      .fcarousel-nav {
+        flex-direction: column;
+        overflow-x: visible;
+        padding: 0 20px;
+        gap: 6px;
+        justify-content: center;
+        border-right: 1px solid rgba(255,255,255,0.08);
+      }
+      .fcarousel-nav::before,
+      .fcarousel-nav::after {
+        display: none;
+      }
+
+      .fcarousel-nav-item {
+        padding: 12px 20px;
+        font-size: 13px;
+      }
+
+      .fcarousel-stack {
+        min-height: 540px;
+        padding: 40px 32px;
+      }
+
+      .fcarousel-slide { width: 260px; }
+    }
+
+    @media (min-width: 1024px) {
+      .fcarousel-layout {
+        grid-template-columns: 300px 1fr;
+        min-height: 620px;
+      }
+      .fcarousel-nav-item {
+        padding: 14px 24px;
+        font-size: 14px;
+      }
+      .fcarousel-slide { width: 290px; }
+      .fcarousel-stack { min-height: 620px; padding: 48px 40px; }
+    }
+
   </style>
 </head>
 <body>
@@ -1187,19 +1475,19 @@
         <div class="fsteps-visual" id="fsteps-visual">
           <div class="fstep-slide fs-active" data-index="0">
             <div class="fstep-phone-wrap">
-              <video src="brand_assets/log session video.MP4" autoplay muted loop playsinline preload="auto"></video>
+              <video src="brand_assets/logsessionvideo.MP4" autoplay muted loop playsinline preload="auto"></video>
             </div>
             <div class="fstep-slide-gradient"></div>
           </div>
           <div class="fstep-slide" data-index="1">
             <div class="fstep-phone-wrap">
-              <video src="brand_assets/home feed.MP4" autoplay muted loop playsinline></video>
+              <video src="brand_assets/share your wins and bad beats.MP4" autoplay muted loop playsinline></video>
             </div>
             <div class="fstep-slide-gradient"></div>
           </div>
           <div class="fstep-slide" data-index="2">
             <div class="fstep-phone-wrap">
-              <video src="brand_assets/friend leaderboard.MP4" autoplay muted loop playsinline></video>
+              <video src="brand_assets/see how you stack up.MP4" autoplay muted loop playsinline></video>
             </div>
             <div class="fstep-slide-gradient"></div>
           </div>
@@ -1248,7 +1536,89 @@
   </div>
 
 
-  <!-- ── Stats strip ──────────────────────────────────────── -->
+  <!-- ── Feature Carousel ─────────────────────────────────── -->
+  <div class="fcarousel-wrap">
+    <div class="fcarousel-card">
+      <div class="fcarousel-layout">
+
+        <!-- Nav pills -->
+        <div class="fcarousel-nav" id="fcarousel-nav">
+          <div class="fcarousel-nav-item fc-active" data-index="0" onclick="fcarouselGoTo(0)">
+            <span class="fcarousel-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg></span>
+            <span class="fcarousel-label">Live Tracking</span>
+          </div>
+          <div class="fcarousel-nav-item" data-index="1" onclick="fcarouselGoTo(1)">
+            <span class="fcarousel-icon"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg></span>
+            <span class="fcarousel-label">Session Logging</span>
+          </div>
+          <div class="fcarousel-nav-item" data-index="2" onclick="fcarouselGoTo(2)">
+            <span class="fcarousel-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
+            <span class="fcarousel-label">Analytics</span>
+          </div>
+          <div class="fcarousel-nav-item" data-index="3" onclick="fcarouselGoTo(3)">
+            <span class="fcarousel-icon"><svg viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5C6 4 6 5 6 5s0-1 1.5-1a2.5 2.5 0 0 1 0 5H6z"/><path d="M6 9v10a1 1 0 0 0 1 1h4"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5C18 4 18 5 18 5s0-1-1.5-1a2.5 2.5 0 0 0 0 5h1.5z"/><path d="M18 9v10a1 1 0 0 1-1 1h-4"/><path d="M12 9v12"/></svg></span>
+            <span class="fcarousel-label">Leaderboards</span>
+          </div>
+          <div class="fcarousel-nav-item" data-index="4" onclick="fcarouselGoTo(4)">
+            <span class="fcarousel-icon"><svg viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg></span>
+            <span class="fcarousel-label">Social Feed</span>
+          </div>
+          <div class="fcarousel-nav-item" data-index="5" onclick="fcarouselGoTo(5)">
+            <span class="fcarousel-icon"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></span>
+            <span class="fcarousel-label">Import Sessions</span>
+          </div>
+        </div>
+
+        <!-- Card stack -->
+        <div class="fcarousel-stack" id="fcarousel-stack">
+          <div class="fcarousel-slide fc-active" data-index="0">
+            <video src="brand_assets/livetrackingvid.MP4" autoplay muted loop playsinline preload="metadata"></video>
+            <div class="fcarousel-slide-overlay">
+              <span class="fcarousel-slide-pill">Live Tracking</span>
+              <p class="fcarousel-slide-desc">Track your stack in real-time</p>
+            </div>
+          </div>
+          <div class="fcarousel-slide" data-index="1">
+            <video src="brand_assets/sessionlogginvid.MP4" muted loop playsinline preload="metadata"></video>
+            <div class="fcarousel-slide-overlay">
+              <span class="fcarousel-slide-pill">Session Logging</span>
+              <p class="fcarousel-slide-desc">Log every session in seconds</p>
+            </div>
+          </div>
+          <div class="fcarousel-slide" data-index="2">
+            <video src="brand_assets/analyticsvideo.MP4" muted loop playsinline preload="metadata"></video>
+            <div class="fcarousel-slide-overlay">
+              <span class="fcarousel-slide-pill">Analytics</span>
+              <p class="fcarousel-slide-desc">Deep dive into your game</p>
+            </div>
+          </div>
+          <div class="fcarousel-slide" data-index="3">
+            <img src="brand_assets/leaderboard.PNG" alt="Leaderboards" loading="lazy">
+            <div class="fcarousel-slide-overlay">
+              <span class="fcarousel-slide-pill">Leaderboards</span>
+              <p class="fcarousel-slide-desc">See how you stack up</p>
+            </div>
+          </div>
+          <div class="fcarousel-slide" data-index="4">
+            <video src="brand_assets/socialfeedvideo.MP4" muted loop playsinline preload="metadata"></video>
+            <div class="fcarousel-slide-overlay">
+              <span class="fcarousel-slide-pill">Social Feed</span>
+              <p class="fcarousel-slide-desc">Share wins and bad beats</p>
+            </div>
+          </div>
+          <div class="fcarousel-slide" data-index="5">
+            <img src="brand_assets/csvimportsessions.PNG" alt="Import Sessions" loading="lazy">
+            <div class="fcarousel-slide-overlay">
+              <span class="fcarousel-slide-pill">Import Sessions</span>
+              <p class="fcarousel-slide-desc">Switch trackers in seconds</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
 <!-- ── Waitlist CTA ─────────────────────────────────────── -->
   <section class="cta-section" id="waitlist">
     <div class="cta-inner">
@@ -1422,6 +1792,84 @@
 
       // Fade in videos once first frame is decoded (avoids black flash)
       document.querySelectorAll('.fstep-phone-wrap video').forEach(function(v) {
+        if (v.readyState >= 2) {
+          v.classList.add('video-ready');
+        } else {
+          v.addEventListener('loadeddata', function() { v.classList.add('video-ready'); }, { once: true });
+        }
+      });
+    })();
+
+    // ── Feature Carousel ──────────────────────────────────────
+    (function() {
+      var current = 0;
+      var navItems = document.querySelectorAll('.fcarousel-nav-item');
+      var slides = document.querySelectorAll('.fcarousel-slide');
+      var stack = document.getElementById('fcarousel-stack');
+      var navEl = document.getElementById('fcarousel-nav');
+      var count = slides.length;
+
+      function updateSlides(idx) {
+        var prev = (idx - 1 + count) % count;
+        var next = (idx + 1) % count;
+
+        slides.forEach(function(sl, i) {
+          sl.classList.remove('fc-active', 'fc-prev', 'fc-next');
+          if (i === idx)       sl.classList.add('fc-active');
+          else if (i === prev) sl.classList.add('fc-prev');
+          else if (i === next) sl.classList.add('fc-next');
+
+          // Only play the active card's video
+          var vid = sl.querySelector('video');
+          if (vid) {
+            if (i === idx) { vid.currentTime = 0; vid.play().catch(function(){}); }
+            else vid.pause();
+          }
+        });
+
+        navItems.forEach(function(item, i) {
+          item.classList.toggle('fc-active', i === idx);
+        });
+
+        // On mobile, scroll the active nav pill into view
+        if (navItems[idx] && navEl) {
+          var pill = navItems[idx];
+          var container = navEl;
+          var scrollLeft = pill.offsetLeft - container.offsetLeft - (container.clientWidth - pill.offsetWidth) / 2;
+          container.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+        }
+      }
+
+      function goTo(idx) {
+        current = idx;
+        updateSlides(current);
+      }
+
+      // Expose for onclick
+      window.fcarouselGoTo = goTo;
+
+      // Swipe on card stack
+      var touchStartX = 0;
+      var touchStartY = 0;
+      stack.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].clientX;
+        touchStartY = e.changedTouches[0].clientY;
+      }, { passive: true });
+
+      stack.addEventListener('touchend', function(e) {
+        var dx = e.changedTouches[0].clientX - touchStartX;
+        var dy = e.changedTouches[0].clientY - touchStartY;
+        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+          if (dx < 0) goTo((current + 1) % count);
+          else goTo((current - 1 + count) % count);
+        }
+      }, { passive: true });
+
+      // Initialize
+      updateSlides(0);
+
+      // Fade in videos once first frame is decoded (avoids white flash)
+      document.querySelectorAll('.fcarousel-slide video').forEach(function(v) {
         if (v.readyState >= 2) {
           v.classList.add('video-ready');
         } else {
